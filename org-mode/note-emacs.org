@@ -1,0 +1,4 @@
+* note-emacs
+** orgmode
+   1. alt键失灵问题,主要是因为xshell的配置问题
+     文件-->属性-->终端-->键盘-->元(meta)键仿真 
