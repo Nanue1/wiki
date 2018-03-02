@@ -17,6 +17,7 @@
     (01) LinkedList继承于AbstractSequentialList，并且实现了Dequeue接口。
     (02) LinkedList包含两个重要的成员：header 和 size。
 
+*** HashMap
 ** concurrent
    http://wangkuiwu.github.io/2012/08/01/threads-index/
 *** 基础概念

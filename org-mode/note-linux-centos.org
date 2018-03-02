@@ -1415,6 +1415,17 @@ server.3=slave02:2888:3888
 * hbase
   start hadoop & zookeeper
 ** hbase configural
+   - .bashrc
+
+     #+BEGIN_SRC 
+# Hbase Environment Variables
+export HBASE_HOME=/home/manue1/opt/hbase-1.2.6/
+PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HBASE_HOME/bin:$PATH
+
+
+     
+     #+END_SRC
+     
    - hbase-env.sh
      #+BEGIN_SRC 
 export JAVA_HOME=/home/manue1/opt/jdk8
@@ -1426,22 +1437,11 @@ export HBASE_MANAGES_ZK=false
      
    - regionservers
      #+BEGIN_SRC 
-
-   - .bashrc
-
-     #+BEGIN_SRC 
-# Hbase Environment Variables
-export HBASE_HOME=/home/manue1/opt/hbase-1.2.6/
-PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HBASE_HOME/bin:$PATH
-
-
-     
-     #+END_SRC
 master
 slave01
 slave02
      #+END_SRC
-     
+
      
 ** hbase start
 
