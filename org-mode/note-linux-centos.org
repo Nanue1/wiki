@@ -790,7 +790,7 @@ manue1@master sbin]$ jps
   yarn 管理界面
   http://master:8088
 
-* elasticstack 集群
+* elasticstk 集群
 ** elasticsearch-611
    
    1. 环境准备

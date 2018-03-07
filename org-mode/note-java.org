@@ -170,4 +170,7 @@ b.txt
 
 *** linux env bash 执行顺序
 *** socket
+*** spark/hadoop
+**** yarn 管理
+     http://blog.csdn.net/suifeng3051/article/details/49486927
     
