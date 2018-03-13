@@ -173,4 +173,71 @@ b.txt
 *** spark/hadoop
 **** yarn 管理
      http://blog.csdn.net/suifeng3051/article/details/49486927
+*** JVM内存不要超过32G
+*** 系统诊断
+    https://www.ibm.com/developerworks/cn/java/j-lo-performance-tuning-practice/index.html
+    oS 的诊断主要关注的是 CPU、Memory、I/O 三个方面。
+    - cpu 诊断
+      top  1，5，15分钟  不超过0.7*core
+    - Memory
+
+      free -m
+
+      通过 top 命令可以查看进程使用的虚拟内存 VIRT 和物理内存 RES
+      根据公式 VIRT = SWAP + RES 
+      可以推算出具体应用使用的交换分区（Swap）情况，使用交换分区过大会影响 Java 应用性能，
+      可以将 swappiness 值调到尽可能小。
+      因为对于 Java 应用来说，占用太多交换分区可能会影响性能，毕竟磁盘性能比内存慢太多
+    - io
+      
+
     
+*** nginx autoindex 403
+
+    cat /var/log/nginx/error.log
+    #+BEGIN_SRC 
+
+    2018/03/10 17:56:19 [error] 23420#0: *1 "/home/manue1/wiki/index.html" is forbidden (13: Permission denied), client: 103.1.153.220, server: www.manue1.site, request: "GET / HTTP/1.1", host: "118.24.19.57"
+    #+END_SRC
+
+    目录权限问题 ps axu | grep nginx 发现启动进程用户为nginx
+    #+BEGIN_SRC 
+[manue1@manpc ~]$ ps aux | grep nginx
+root     24694  0.0  0.1  58808  1188 ?        Ss   18:17   0:00 nginx: master process /usr/sbin/nginx
+nginx    24695  0.0  0.2  61348  2108 ?        S    18:17   0:00 nginx: worker process
+nginx    24696  0.0  0.2  61348  2108 ?        S    18:17   0:00 nginx: worker process
+nginx    24697  0.0  0.2  61348  2108 ?        S    18:17   0:00 nginx: worker process
+nginx    24698  0.0  0.2  61348  2596 ?        S    18:17   0:00 nginx: worker process
+    
+    #+END_SRC
+
+    查看wiki 目录权限
+    sudo -u nginx stat wiki
+    #+BEGIN_SRC 
+
+[manue1@manpc ~]$ sudo -u nginx stat wiki
+[sudo] password for manue1:
+stat: 无法获取"wiki" 的文件状态(stat): 权限不够
+
+manue1@manpc ~]$ ls -al wiki/
+总用量 32
+drwxrwxr-x 7 manue1 manue1 4096 3月  10 16:52 .
+drwx------ 4 manue1 manue1 4096 3月  10 18:14 ..
+drwxrwxr-x 8 manue1 manue1 4096 3月  10 16:52 .git
+drwxrwxr-x 2 manue1 manue1 4096 3月  10 16:52 html
+drwxrwxr-x 2 manue1 manue1 4096 3月  10 16:52 markdown
+drwxrwxr-x 2 manue1 manue1 4096 3月  10 16:52 org-mode
+-rw-rwxr-- 1 manue1 manue1   15 3月  10 16:52 README.md
+drwxrwxr-x 2 manue1 manue1 4096 3月  10 16:52 tools
+    
+    #+END_SRC
+
+    问题在于root 运行的nginx 启动的woker进程是nginx用户下执行的,wiki是manue1用户下的站点,直接修改nginx.conf
+    #+BEGIN_SRC 
+user manue1;
+worker_processes 4;
+    #+END_SRC
+
+    fixed!
+*** nginx 多端口绑定子域名
+    upstream

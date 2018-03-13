@@ -136,7 +136,7 @@
      #+END_SRC
 3. 删除索引
   curl -XDELETE localhost:9200/index_name
-
+   
 ** CURD
  1. 添加一条记录
   curl -XPUT 'http://localhost:9200/twitter/tweet/1' -d  '{_source 内容}'

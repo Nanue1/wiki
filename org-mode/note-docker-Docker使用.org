@@ -24,6 +24,8 @@
 
       Registry 注册服务器包含众多Repository
 
+<<<<<<< HEAD
+=======
 * Docker Image
 ** 获取镜像
    docker pull NAME[: TAG] 
@@ -272,6 +274,7 @@
 ** 端口映射实现访问容器
 ** 容器互联实现容器间通信
 * Dockerfile
+>>>>>>> 3fc6a37568580f54a8dfc6f4c1f4c48dc5709ccf
 * Docker use note
 ** Docker install
    1. 图解Docker
@@ -303,4 +306,9 @@
 
      Solve it by this:
 
+<<<<<<< HEAD
+     
+* common problem
+  1. ImportError: No module named apt_pkg
+     安装docker 执行 sudo add-apt-repository 的时候报错
      /usr/lib/python3/dist-packages# cp apt_pkg.cpython-34m-x86_64-linux-gnu.so apt_pkg.so
